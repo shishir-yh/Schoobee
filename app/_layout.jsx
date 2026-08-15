@@ -1,0 +1,17 @@
+import React from "react";
+import "../global.css"
+import { Slot } from "expo-router";
+// import { AuthProvider } from "../context/AuthContext";
+import { AuthProvider } from "../context/AuthContext";
+
+export default function RootLayout() {
+  return (
+    <AuthProvider>
+      <Slot />
+    </AuthProvider>
+  );
+}
+
+
+
+
