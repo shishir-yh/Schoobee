@@ -34,10 +34,42 @@ export default function TeacherLayout() {
         options={{ title: "Attendance" }}
       />
 
-      <Stack.Screen
+       <Stack.Screen
         name="marks"
-        options={{ title: "Marks" }}
+        options={{title: "Mark Entry",}}
       />
+
+      <Stack.Screen
+        name="online-class"
+        options={{title: "Online Classes",}}
+      />
+
+      <Stack.Screen
+        name="routine"
+        options={{title: "Routine",}}
+      />
+
+      <Stack.Screen
+        name="notices"
+        options={{
+        title: "Notices",}}
+      />
+
+      <Stack.Screen
+        name="academic-calendar"
+        options={{
+          title: "Academic Calendar",
+        }}
+      />
+      <Stack.Screen
+        name="my-attendance"
+        options={{
+          title: "My Attendance",
+        }}
+      />  
+
     </Stack>
+
+    
   );
 }

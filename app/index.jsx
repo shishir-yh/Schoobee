@@ -53,7 +53,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <View className="flex-1 bg-white px-6 pt-9">
+    <View className="flex-1 bg-white px-6 pt-20">
       {/* Logo */}
       <View className="items-center mb-4">
         <Ionicons name="school" size={64} color="#8E7CC3" />
