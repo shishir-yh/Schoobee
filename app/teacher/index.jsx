@@ -1,291 +1,423 @@
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
+  StyleSheet,
+  ActivityIndicator,
+  Animated,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import { useAuth } from "../../context/AuthContext";
-import {
-  teacherDashboardItems,
-  teacherSummaryItems,
-  teacherAttendanceData,
-} from "../../data/users";
+import { Redirect } from "expo-router";
 
+export default function TeacherIndex() {
+  const [loading, setLoading] = useState(true);
+  const scale = React.useRef(new Animated.Value(0.8)).current;
+  const opacity = React.useRef(new Animated.Value(0)).current;
 
+  useEffect(() => {
+    Animated.parallel([
+      Animated.spring(scale, {
+        toValue: 1,
+        friction: 6,
+        tension: 40,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+    ]).start();
 
-export default function TeacherDashboard() {
-  const router = useRouter();
-  const { currentUser, logout } = useAuth();
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1200);
 
-  const handleLogout = () => {
-      Alert.alert("Logout", "Are you sure you want to logout?", [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        {
-          text: "Logout",
-          onPress: () => {
-            logout();
-            router.replace("/");
-          },
-        },
-      ]);
-    };
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!loading) {
+    return <Redirect href="/teacher/(tabs)" />;
+  }
 
   return (
-    <ScrollView className="flex-1 bg-white">
-      
-      {/* Header */}
-      <View className="bg-[#8E7CC3] px-5 pt-12 pb-12 relative">
-
-    {/* Header Content */}
-    <View className="flex-row items-center justify-between">
-
-      {/* Profile + User Info */}
-      <View className="flex-row items-center">
-        <View className="w-12 h-12 rounded-full bg-white items-center justify-center">
-          <Ionicons
-            name="person"
-            size={25}
-            color="#8E7CC3"
-          />
-        </View>
-
-        <View className="ml-3">
-          <Text className="text-white text-xs">
-            Welcome Back
-          </Text>
-
-          <Text className="text-white text-lg font-bold">
-            {currentUser?.name}
-          </Text>
-
-          <Text className="text-white/80 text-xs">
-            Teacher
-          </Text>
-        </View>
-      </View>
-
-      {/* Notification */}
-      <TouchableOpacity>
-        <Ionicons
-          name="notifications-outline"
-          size={25}
-          color="white"
-        />
-      </TouchableOpacity>
-
-    </View>
-
-    {/* Bottom White Curve */}
-    <View
-      className="absolute bg-white left-0 right-0"
-      style={{
-        height: 25,
-        bottom: 0,
-        borderTopLeftRadius: 45,
-        borderTopRightRadius: 45,
-      }}
-    />
-
-      </View>
-
-      {/* White Content */}
-      <View
-        className="bg-white flex-1"
-        style={{
-          marginTop: -30,
-          borderTopLeftRadius: 40,
-          borderTopRightRadius: 40,
-        }}
+    <View style={styles.container}>
+      <Animated.View
+        style={[
+          styles.content,
+          {
+            opacity,
+            transform: [{ scale }],
+          },
+        ]}
       >
-        {/* Your content here */}
-      </View>
-
-      {/* Dashboard Grid */}
-      <View className="px-5 pt-6">
-        <View className="flex-row flex-wrap justify-between">
-          {teacherDashboardItems.map((item) => (
-            <TouchableOpacity
-              key={item.title}
-              className="w-[31%] mb-4 items-center"
-              onPress={() => {
-                if (item.title === "Profile") {
-                  router.push("/teacher/profile");
-                }
-                if (item.title === "Online Class") {
-                  router.push("/teacher/online-class");
-                }
-                if (item.title === "Mark Entry") {
-                  router.push("/teacher/marks");
-                }
-                if (item.title === "Take Attend") {
-                  router.push("/teacher/attendance");
-                }
-                if (item.title === "Student List") {
-                  router.push("/teacher/students");
-               } 
-               if (item.title === "Routine") {
-                  router.push("/teacher/routine");
-               }
-               if (item.title === "My Attendance") {
-                  router.push("/teacher/my-attendance");
-               }
-                if (item.title === "Academic Cal") { 
-                  router.push("/teacher/academic-calendar");
-              }
-               if (item.title === "Notices") {
-                  router.push("/teacher/notices");
-              }
-
-              }}
-            >
-              <View
-                className="w-16 h-16 rounded-2xl items-center justify-center"
-                style={{
-                  backgroundColor: `${item.color}20`,
-                }}
-              >
-                <Ionicons
-                  name={item.icon}
-                  size={28}
-                  color={item.color}
-                />
-              </View>
-
-              <Text className="text-xs text-gray-700 text-center mt-2">
-                {item.title}
-              </Text>
-
-              {item.badge && (
-                <View className="absolute top-0 right-3 bg-red-500 w-5 h-5 rounded-full items-center justify-center">
-                  <Text className="text-white text-[10px] font-bold">
-                    {item.badge}
-                  </Text>
-                </View>
-              )}
-            </TouchableOpacity>
-          ))}
-  
+        {/* Logo */}
+        <View style={styles.logo}>
+          <Text style={styles.logoText}>T</Text>
         </View>
 
-        
-      </View>
+        {/* App Name */}
+        <Text style={styles.title}>Teacher Portal</Text>
 
-      {/* summary overview */}
-      <View className="px-5 mt-4">
-        <Text className="text-xl font-bold text-gray-800 mb-4">
-          Overview
-        </Text>
-
-        <View className="flex-row flex-wrap justify-between">
-          {teacherSummaryItems.map((item) => (
-            <View
-              key={item.label}
-              className="w-[48%] bg-white rounded-2xl p-4 mb-3"
-            >
-              <View className="flex-row items-center justify-between">
-                
-                <View>
-                  <Text className="text-2xl font-bold text-gray-800">
-                    {item.value}
-                  </Text>
-
-                  <Text className="text-gray-500 text-xs mt-1">
-                    {item.label}
-                  </Text>
-                </View>
-
-                <View
-                  className="w-10 h-10 rounded-xl items-center justify-center"
-                  style={{
-                    backgroundColor: `${item.color}20`,
-                  }}
-                >
-                  <Ionicons
-                    name={item.icon}
-                    size={20}
-                    color={item.color}
-                  />
-                </View>
-
-              </View>
-            </View>
-          ))}
-        </View>
-        
-      
-      </View>
-
-      {/* Class Attendance Average */}
-      {/* Attendance Overview  */}
-      <View className="px-5 mt-4 mb-6">
-  <Text className="text-xl font-bold text-gray-800 mb-4">
-    Attendance Overview
-  </Text>
-
-  <View className="rounded-2xl border border-[#EEEAF2] bg-white p-4">
-    <Text className="mb-4 text-[14px] font-medium text-[#33303A]">
-      Class Attendance Average
-    </Text>
-
-    <View className="h-[210px] flex-row items-end justify-between px-2">
-      {teacherAttendanceData.map((item) => (
-        <View
-          key={item.label}
-          className="h-full flex-1 items-center justify-end"
-        >
-          {/* Percentage */}
-          <Text className="mb-1 text-[10px] font-medium text-[#77727F]">
-            {item.value}%
-          </Text>
-
-          {/* Vertical Bar */}
-          <View className="h-[155px] w-9 justify-end">
-            <View
-              className="w-full rounded-t-md bg-[#8E7CC3]"
-              style={{
-                height: `${item.value}%`,
-              }}
-            />
-          </View>
-
-          {/* Label */}
-          <Text
-            className="mt-2 text-[9px] text-[#77727F]"
-            numberOfLines={1}
-          >
-            {item.label}
-          </Text>
-        </View>
-      ))}
+        {/* Loading */}
+        <ActivityIndicator
+          size="small"
+          color="#4F46E5"
+          style={styles.loader}
+        />
+      </Animated.View>
     </View>
-  </View>
-      </View>
-
-
-      {/* Logout Button Section */}
-      <View className="px-5 mt-6 mb-12">
-        <TouchableOpacity
-          onPress={handleLogout}
-          className="bg-red-500 flex-row items-center justify-center py-3.5 rounded-2xl shadow-md"
-        >
-          <Ionicons name="log-out-outline" size={20} color="white" className="mr-2" />
-          <Text className="text-white font-bold text-base ml-2">
-            Logout
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-
-
-    </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F8FAFC",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  content: {
+    alignItems: "center",
+  },
+
+  logo: {
+    width: 76,
+    height: 76,
+    borderRadius: 22,
+    backgroundColor: "#4F46E5",
+    justifyContent: "center",
+    alignItems: "center",
+
+    shadowColor: "#4F46E5",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+
+    elevation: 8,
+  },
+
+  logoText: {
+    fontSize: 38,
+    fontWeight: "800",
+    color: "#FFFFFF",
+  },
+
+  title: {
+    marginTop: 18,
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#111827",
+    letterSpacing: 0.2,
+  },
+
+  loader: {
+    marginTop: 22,
+  },
+});
+
+// import React from "react";
+// import { Redirect } from "expo-router";
+
+// export default function TeacherIndex() {
+//   return <Redirect href="/teacher/(tabs)" />;
+// }
+
+
+
+//Most important file for teacher dashboard. This file contains the main dashboard screen for teachers, including navigation to various features like profile, online class, mark entry, attendance, student list, routine, my attendance, academic calendar, and notices. It also includes a logout button and an overview section with summary cards and attendance data visualization.
+
+// import {
+//   View,
+//   Text,
+//   TouchableOpacity,
+//   ScrollView,
+//   Alert,
+// } from "react-native";
+// import { Ionicons } from "@expo/vector-icons";
+// import { useRouter } from "expo-router";
+// import { useAuth } from "../../context/AuthContext";
+// import {
+//   teacherDashboardItems,
+//   teacherSummaryItems,
+//   teacherAttendanceData,
+// } from "../../data/users";
+
+
+
+// export default function TeacherDashboard() {
+//   const router = useRouter();
+//   const { currentUser, logout } = useAuth();
+
+//   const handleLogout = () => {
+//       Alert.alert("Logout", "Are you sure you want to logout?", [
+//         {
+//           text: "Cancel",
+//           style: "cancel",
+//         },
+//         {
+//           text: "Logout",
+//           onPress: () => {
+//             logout();
+//             router.replace("/");
+//           },
+//         },
+//       ]);
+//     };
+
+//   return (
+//     <ScrollView className="flex-1 bg-white">
+      
+//       {/* Header */}
+//       <View className="bg-[#8E7CC3] px-5 pt-12 pb-12 relative">
+
+//     {/* Header Content */}
+//     <View className="flex-row items-center justify-between">
+
+//       {/* Profile + User Info */}
+//       <View className="flex-row items-center">
+//         <View className="w-12 h-12 rounded-full bg-white items-center justify-center">
+//           <Ionicons
+//             name="person"
+//             size={25}
+//             color="#8E7CC3"
+//           />
+//         </View>
+
+//         <View className="ml-3">
+//           <Text className="text-white text-xs">
+//             Welcome Back
+//           </Text>
+
+//           <Text className="text-white text-lg font-bold">
+//             {currentUser?.name}
+//           </Text>
+
+//           <Text className="text-white/80 text-xs">
+//             Teacher
+//           </Text>
+//         </View>
+//       </View>
+
+//       {/* Notification */}
+//       <TouchableOpacity>
+//         <Ionicons
+//           name="notifications-outline"
+//           size={25}
+//           color="white"
+//         />
+//       </TouchableOpacity>
+
+//     </View>
+
+//     {/* Bottom White Curve */}
+//     <View
+//       className="absolute bg-white left-0 right-0"
+//       style={{
+//         height: 25,
+//         bottom: 0,
+//         borderTopLeftRadius: 45,
+//         borderTopRightRadius: 45,
+//       }}
+//     />
+
+//       </View>
+
+//       {/* White Content */}
+//       <View
+//         className="bg-white flex-1"
+//         style={{
+//           marginTop: -30,
+//           borderTopLeftRadius: 40,
+//           borderTopRightRadius: 40,
+//         }}
+//       >
+//         {/* Your content here */}
+//       </View>
+
+//       {/* Dashboard Grid */}
+//       <View className="px-5 pt-6">
+//         <View className="flex-row flex-wrap justify-between">
+//           {teacherDashboardItems.map((item) => (
+//             <TouchableOpacity
+//               key={item.title}
+//               className="w-[31%] mb-4 items-center"
+//               onPress={() => {
+//                 if (item.title === "Profile") {
+//                   router.push("/teacher/profile");
+//                 }
+//                 if (item.title === "Online Class") {
+//                   router.push("/teacher/online-class");
+//                 }
+//                 if (item.title === "Mark Entry") {
+//                   router.push("/teacher/marks");
+//                 }
+//                 if (item.title === "Take Attend") {
+//                   router.push("/teacher/attendance");
+//                 }
+//                 if (item.title === "Student List") {
+//                   router.push("/teacher/students");
+//                } 
+//                if (item.title === "Routine") {
+//                   router.push("/teacher/routine");
+//                }
+//                if (item.title === "My Attendance") {
+//                   router.push("/teacher/my-attendance");
+//                }
+//                 if (item.title === "Academic Cal") { 
+//                   router.push("/teacher/academic-calendar");
+//               }
+//                if (item.title === "Notices") {
+//                   router.push("/teacher/notices");
+//               }
+
+//               }}
+//             >
+//               <View
+//                 className="w-16 h-16 rounded-2xl items-center justify-center"
+//                 style={{
+//                   backgroundColor: `${item.color}20`,
+//                 }}
+//               >
+//                 <Ionicons
+//                   name={item.icon}
+//                   size={28}
+//                   color={item.color}
+//                 />
+//               </View>
+
+//               <Text className="text-xs text-gray-700 text-center mt-2">
+//                 {item.title}
+//               </Text>
+
+//               {item.badge && (
+//                 <View className="absolute top-0 right-3 bg-red-500 w-5 h-5 rounded-full items-center justify-center">
+//                   <Text className="text-white text-[10px] font-bold">
+//                     {item.badge}
+//                   </Text>
+//                 </View>
+//               )}
+//             </TouchableOpacity>
+//           ))}
+  
+//         </View>
+
+        
+//       </View>
+
+//       {/* summary overview */}
+//       <View className="px-5 mt-4">
+//         <Text className="text-xl font-bold text-gray-800 mb-4">
+//           Overview
+//         </Text>
+
+//         <View className="flex-row flex-wrap justify-between">
+//           {teacherSummaryItems.map((item) => (
+//             <View
+//               key={item.label}
+//               className="w-[48%] bg-white rounded-2xl p-4 mb-3"
+//             >
+//               <View className="flex-row items-center justify-between">
+                
+//                 <View>
+//                   <Text className="text-2xl font-bold text-gray-800">
+//                     {item.value}
+//                   </Text>
+
+//                   <Text className="text-gray-500 text-xs mt-1">
+//                     {item.label}
+//                   </Text>
+//                 </View>
+
+//                 <View
+//                   className="w-10 h-10 rounded-xl items-center justify-center"
+//                   style={{
+//                     backgroundColor: `${item.color}20`,
+//                   }}
+//                 >
+//                   <Ionicons
+//                     name={item.icon}
+//                     size={20}
+//                     color={item.color}
+//                   />
+//                 </View>
+
+//               </View>
+//             </View>
+//           ))}
+//         </View>
+        
+      
+//       </View>
+
+//       {/* Class Attendance Average */}
+//       {/* Attendance Overview  */}
+//       <View className="px-5 mt-4 mb-6">
+//   <Text className="text-xl font-bold text-gray-800 mb-4">
+//     Attendance Overview
+//   </Text>
+
+//   <View className="rounded-2xl border border-[#EEEAF2] bg-white p-4">
+//     <Text className="mb-4 text-[14px] font-medium text-[#33303A]">
+//       Class Attendance Average
+//     </Text>
+
+//     <View className="h-[210px] flex-row items-end justify-between px-2">
+//       {teacherAttendanceData.map((item) => (
+//         <View
+//           key={item.label}
+//           className="h-full flex-1 items-center justify-end"
+//         >
+//           {/* Percentage */}
+//           <Text className="mb-1 text-[10px] font-medium text-[#77727F]">
+//             {item.value}%
+//           </Text>
+
+//           {/* Vertical Bar */}
+//           <View className="h-[155px] w-9 justify-end">
+//             <View
+//               className="w-full rounded-t-md bg-[#8E7CC3]"
+//               style={{
+//                 height: `${item.value}%`,
+//               }}
+//             />
+//           </View>
+
+//           {/* Label */}
+//           <Text
+//             className="mt-2 text-[9px] text-[#77727F]"
+//             numberOfLines={1}
+//           >
+//             {item.label}
+//           </Text>
+//         </View>
+//       ))}
+//     </View>
+//   </View>
+//       </View>
+
+
+//       {/* Logout Button Section */}
+//       <View className="px-5 mt-6 mb-12">
+//         <TouchableOpacity
+//           onPress={handleLogout}
+//           className="bg-red-500 flex-row items-center justify-center py-3.5 rounded-2xl shadow-md"
+//         >
+//           <Ionicons name="log-out-outline" size={20} color="white" className="mr-2" />
+//           <Text className="text-white font-bold text-base ml-2">
+//             Logout
+//           </Text>
+//         </TouchableOpacity>
+//       </View>
+
+
+
+//     </ScrollView>
+//   );
+// }
 
 
 

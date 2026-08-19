@@ -22,7 +22,7 @@ export const users = [
 // Teacher Dashboard Data
 export const teacherDashboardItems = [
   {
-    title: " My Profile",
+    title: "Profile",
     icon: "person-outline",
     color: "#14B8A6",
   },
