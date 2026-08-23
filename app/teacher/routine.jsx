@@ -3,8 +3,9 @@ import React from 'react'
 
 export default function routine() {
   return (
-    <View>
-      <Text>routine</Text>
+    <View className='flex-1 items-center justify-center bg-white'>
+      <Text>Teacher/routine</Text>
     </View>
   )
 }
+

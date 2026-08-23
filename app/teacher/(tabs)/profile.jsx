@@ -1,12 +1,8 @@
 import React from "react";
-import { View, Text } from "react-native";
+import Profile from "../profile";
 
-export default function TeacherHome() {
-  return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-2xl font-bold text-gray-800">
-        My Profile
-      </Text>
-    </View>
-  );
+
+export default function profileTab() {
+  return <Profile />  ;
 }
+

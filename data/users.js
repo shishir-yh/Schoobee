@@ -73,8 +73,8 @@ export const teacherDashboardItems = [
 
 export const teacherSummaryItems = [
   {
-    value: "5",
-    label: "Total Students",
+    value: "57",
+    label: "number of Students",
     icon: "account-group-outline",
     color: "#8E7CC3",
   },
@@ -286,7 +286,7 @@ export const teacherAttendanceStudents = [
 export const teacherAttendanceData = [
   {
     label: "CS101",
-    value: 95,
+    value: 65,
   },
   {
     label: "CS102",

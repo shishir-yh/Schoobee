@@ -1,13 +1,6 @@
 import React from "react";
-import { View, Text } from "react-native";
+import TeacherRoutine from "../routine";
 
-export default function TeacherHome() {
-  return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-2xl font-bold text-gray-800">
-        Teacher Routine
-      </Text>
-    </View>
-  );
+export default function RoutineTab() {
+  return <TeacherRoutine />;
 }
-

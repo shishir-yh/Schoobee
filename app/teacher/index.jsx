@@ -119,6 +119,9 @@ const styles = StyleSheet.create({
   },
 });
 
+
+
+
 // import React from "react";
 // import { Redirect } from "expo-router";
 
@@ -1280,3 +1283,7 @@ const styles = StyleSheet.create({
 //     </SafeAreaView>
 //   );
 // }
+
+
+
+//assets/data/notifications.json

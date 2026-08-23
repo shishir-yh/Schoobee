@@ -13,7 +13,9 @@ export default function TeacherLayout() {
   }
 
   return (
-    <Stack>
+    <Stack screenOptions={{
+        headerShown: false,
+      }}>
       <Stack.Screen
         name="index"
         options={{ title: "Teacher Dashboard" }}
