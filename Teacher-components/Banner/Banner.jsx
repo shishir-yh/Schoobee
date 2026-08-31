@@ -29,7 +29,7 @@ const HORIZONTAL_PADDING = 20;
 const BANNER_WIDTH =
   SCREEN_WIDTH - HORIZONTAL_PADDING * 2;
 
-const AUTO_PLAY_INTERVAL = 2000;
+const AUTO_PLAY_INTERVAL = 4000;
 
 
 // =====================================================
@@ -39,11 +39,10 @@ const AUTO_PLAY_INTERVAL = 2000;
 const banners = [
   require("../../assets/images/banner1.jpg"),
   require("../../assets/images/banner2.jpg"),
-  require("../../assets/images/banner3.jpg"),
+  // require("../../assets/images/banner3.jpg"),
   require("../../assets/images/banner4.jpg"),
   require("../../assets/images/banner5.jpg"),
   require("../../assets/images/banner6.jpg"),
-  require("../../assets/images/banner7.jpg"),
 ];
 
 
@@ -151,7 +150,8 @@ export default function Banner() {
 
   return (
 
-    <View className="w-full px-5">
+    <View className="mt-5 mb-6 rounded-[20px]">
+          <View className="w-full px-5">
 
       {/* =============================================
           BANNER CONTAINER
@@ -233,64 +233,41 @@ export default function Banner() {
         </ScrollView>
 
 
-        {/* =========================================
-            PAGINATION DOTS
-        ========================================= */}
+  
+<View
+  style={{ position: "absolute", bottom: 12, left: 0, right: 0 }}
+  className="items-center"
+>
+  <View
+    className="flex-row items-center rounded-full px-1.5 py-1.5"
+    style={{ backgroundColor: "rgba(120,120,120,0.35)" }}
+  >
+    {banners.map((_, index) => {
+      const active = index === currentIndex;
 
-        {/* <View
-          className="
-            absolute
-            bottom-3
-            left-0
-            right-0
-            items-center
-          "
-        >
-
-          <View
-            className="
-              flex-row
-              items-center
-              rounded-full
-              bg-black/40
-              px-3
-              py-1.5
-            "
-          >
-
-            {banners.map((_, index) => {
-
-              const active =
-                index === currentIndex;
-
-
-              return (
-
-                <View
-                  key={index}
-                  className={`
-                    mx-1
-                    h-2
-                    rounded-full
-                    ${
-                      active
-                        ? "w-5 bg-white"
-                        : "w-2 bg-white/50"
-                    }
-                  `}
-                />
-
-              );
-
-            })}
-
-          </View>
-
-        </View> */}
+      return (
+        <View
+          key={index}
+          className="mx-0.5 rounded-full"
+          style={{
+            height: 6,
+            width: active ? 22 : 6,
+            backgroundColor: active
+              ? "#ffffff"
+              : "rgba(255,255,255,0.6)",
+          }}
+        />
+      );
+    })}
+  </View>
+</View>
 
       </View>
 
     </View>
+        </View>
+
+    
 
   );
 }

@@ -13,9 +13,23 @@ export const users = [
     userId: "EDU-TEA-001",
     password: "EDU-TEA-001",
     role: "teacher",
-    name: "Demo Teacher",
-  },
+    name: "Mr. Shishir",
+    img: "https://simgbb.com/avatar/MnBx1LRf10Ms.jpg",
+
+    designation: "Principal & Tech Head",
+    department: "General Section",
+    section: "Class Teacher, Grade 8",
+    email: "anisul.islam@edumanage.com",
+    contact: "01819-123456",
+    officePhone: "+880-2-998877",
+    bloodGroup: "O+ (Positive)",
+    joiningDate: "12 Jan 2015",
+    address: "Dhanmondi, Dhaka, Bangladesh",
+    dateOfBirth: "04 Oct 1985",
+    nid: "1985263598741",
+  }
 ];
+
 
 //Teacher Dashboard:-------->
 
@@ -282,22 +296,4 @@ export const teacherAttendanceStudents = [
   },
 ];
 
-// Teacher Attendance Data for Chart
-export const teacherAttendanceData = [
-  {
-    label: "CS101",
-    value: 65,
-  },
-  {
-    label: "CS102",
-    value: 92,
-  },
-  {
-    label: "MATH201",
-    value: 78,
-  },
-  {
-    label: "PHY101",
-    value: 88,
-  },
-];
+

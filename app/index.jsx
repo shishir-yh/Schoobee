@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  StatusBar,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
@@ -53,7 +54,13 @@ export default function LoginScreen() {
   };
 
   return (
-    <View className="flex-1 bg-white px-6 pt-20">
+    <View style={{ flex: 1 }}>
+      {/* <StatusBar
+        style="light"
+        backgroundColor="#8E7CC3"
+      /> */}
+
+      <View className="flex-1 bg-white px-6 pt-20">
       {/* Logo */}
       <View className="items-center mb-4">
         <Ionicons name="school" size={64} color="#8E7CC3" />
@@ -190,6 +197,7 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
       </View>
+    </View>
     </View>
   );
 }
