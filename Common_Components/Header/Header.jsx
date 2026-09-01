@@ -122,7 +122,7 @@ export default function Header({
 
           <View className="ml-3 flex-1">
 
-            <Text className="text-white/90 text-sm">
+            <Text className="text-white text-sm">
               {getGreeting()} 👋
             </Text>
 
@@ -181,20 +181,18 @@ export default function Header({
       ========================= */}
 
       <View
-        className="
-          absolute
-          bg-white
-          left-0
-          right-0
-        "
-        style={{
-          height: 28,
-          bottom: 0,
-          borderTopLeftRadius: 45,
-          borderTopRightRadius: 45,
-        }}
-      />
+  className="absolute bg-white left-0 right-0"
+  style={{
+    height: 20,
+    bottom: 0,
+    borderTopLeftRadius: 45,
+    borderTopRightRadius: 45,
+  }}
+/>
 
     </ImageBackground>
   );
 }
+
+
+

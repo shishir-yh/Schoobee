@@ -59,8 +59,8 @@ export default function QuickAccess() {
   };
 
   return (
-    <View className="px-5 pt-6">
-      <Text className="text-xl font-bold text-gray-800 mb-4">
+    <View className="px-5 pt-3">
+      <Text className="text-xl font-bold text-gray-800 mb-2">
         Quick Access
       </Text>
 
@@ -88,13 +88,12 @@ export default function QuickAccess() {
               />
             </View>
 
-            <Text
-              className="text-xs text-gray-700 text-center mt-2"
-              numberOfLines={2}
-            >
-              {item.title}
-            </Text>
-
+       <Text
+  className="text-sm font-semibold text-gray-800 text-center mt-2"
+  numberOfLines={2}
+>
+  {item.title}
+</Text>
             {item.badge && (
               <View className="absolute top-0 right-3 bg-red-500 w-5 h-5 rounded-full items-center justify-center">
                 <Text className="text-white text-[10px] font-bold">
@@ -149,7 +148,7 @@ export default function QuickAccess() {
         <View
           className="items-center"
           style={{
-            marginTop: showMore ? 0 : -8,
+            marginTop: showMore ? 0 : -65,
           }}
         >
           <TouchableOpacity
@@ -173,7 +172,7 @@ export default function QuickAccess() {
 
             <Ionicons
               name={showMore ? "chevron-up" : "chevron-down"}
-              size={20}
+              size={10}
               color="#8E7CC3"
               style={{
                 marginLeft: 7,
