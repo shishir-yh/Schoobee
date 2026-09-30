@@ -3,21 +3,17 @@ import React, { useState } from "react";
 import {
   View,
   ScrollView,
+  StatusBar, // 👈 এখানে যোগ করুন
 } from "react-native";
 
-import {
-  useRouter,
-} from "expo-router";
-
-import {
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
-
+import { useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuth } from "../../../context/AuthContext";
 
 import Header from "../../../Common_Components/Header/Header";
 import TeacherSideMenu from "../../../Teacher-components/TeacherSideMenu/TeacherSideMenu";
 
+import SchoolBanner from "../../../Teacher-components/SchoolBanner/SchoolBanner";
 import Banner from "../../../Teacher-components/Banner/Banner";
 import AttendanceOverview from "../../../Teacher-components/AttendanceOverview/AttendanceOverview";
 import Overview from "../../../Teacher-components/Overview/Overview";
@@ -28,62 +24,24 @@ import QuickFeatures from "../../../Teacher-components/QuickFeaturesLast/QuickFe
 import BelowSpace from "../../../Common_Components/BelowSpace";
 
 
-// Teacher Dashboard
 export default function TeacherDashboard() {
-
   const router = useRouter();
   const insets = useSafeAreaInsets();
-
-  const {
-    currentUser,
-    logout,
-  } = useAuth();
-
+  const { currentUser, logout } = useAuth();
   const [menuVisible, setMenuVisible] = useState(false);
 
-  const handleMenuOpen = () => {
-    setMenuVisible(true);
-  };
+  const handleMenuOpen = () => setMenuVisible(true);
+  const handleMenuClose = () => setMenuVisible(false);
 
-  const handleMenuClose = () => {
-    setMenuVisible(false);
-  };
-
-  // Side menu navigation
   const handleMenuNavigation = (title) => {
-
-    if (title === "Dashboard") {
-      router.replace("/teacher/(tabs)");
-      return;
-    }
-
-    if (title === "Students") {
-      router.push("/teacher/students");
-      return;
-    }
-
-    if (title === "Attendance") {
-      router.push("/teacher/attendance");
-      return;
-    }
-
-    if (title === "Mark Entry") {
-      router.push("/teacher/marks");
-      return;
-    }
-
-    if (title === "Routine") {
-      router.push("/teacher/(tabs)/routine");
-      return;
-    }
-
-    if (title === "Notices") {
-      router.push("/teacher/notices");
-      return;
-    }
+    if (title === "Dashboard") return router.replace("/teacher/(tabs)");
+    if (title === "Students") return router.push("/teacher/students");
+    if (title === "Attendance") return router.push("/teacher/attendance");
+    if (title === "Mark Entry") return router.push("/teacher/marks");
+    if (title === "Routine") return router.push("/teacher/(tabs)/routine");
+    if (title === "Notices") return router.push("/teacher/notices");
   };
 
-  // Logout
   const handleLogout = () => {
     logout();
     router.replace("/");
@@ -92,7 +50,12 @@ export default function TeacherDashboard() {
   return (
     <View className="flex-1 bg-white">
 
-      {/* Header */}
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="#625373"
+        translucent={false}
+      />
+
       <Header
         currentUser={currentUser}
         insets={insets}
@@ -100,7 +63,6 @@ export default function TeacherDashboard() {
         role="Teacher"
       />
 
-      {/* Dashboard Content */}
       <ScrollView
         className="bg-white flex-1"
         style={{
@@ -111,30 +73,20 @@ export default function TeacherDashboard() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingTop: 1,
-          paddingBottom: Math.max(
-            20,
-            insets.bottom + 80
-          ),
+          paddingBottom: Math.max(20, insets.bottom + 80),
         }}
       >
 
+        <SchoolBanner />
         <QuickAccess />
-
         <Banner />
-
         <Overview />
-
         <AttendanceOverview />
-
         <RecentTasks />
-
         <QuickFeatures />
-
         <BelowSpace />
-
       </ScrollView>
 
-      {/* Teacher Side Menu */}
       <TeacherSideMenu
         visible={menuVisible}
         onClose={handleMenuClose}
@@ -142,10 +94,159 @@ export default function TeacherDashboard() {
         onLogout={handleLogout}
         insets={insets}
       />
-
     </View>
   );
 }
+
+
+// import React, { useState } from "react";
+
+// import {
+//   View,
+//   ScrollView,
+// } from "react-native";
+
+// import {
+//   useRouter,
+// } from "expo-router";
+
+// import {
+//   useSafeAreaInsets,
+// } from "react-native-safe-area-context";
+
+// import { useAuth } from "../../../context/AuthContext";
+
+// import Header from "../../../Common_Components/Header/Header";
+// import TeacherSideMenu from "../../../Teacher-components/TeacherSideMenu/TeacherSideMenu";
+
+// import Banner from "../../../Teacher-components/Banner/Banner";
+// import AttendanceOverview from "../../../Teacher-components/AttendanceOverview/AttendanceOverview";
+// import Overview from "../../../Teacher-components/Overview/Overview";
+// import QuickAccess from "../../../Teacher-components/QuickAccess/QuickAccess";
+// import RecentTasks from "../../../Teacher-components/RecentTasks/RecentTasks";
+// import QuickFeatures from "../../../Teacher-components/QuickFeaturesLast/QuickFeaturesLast";
+
+// import BelowSpace from "../../../Common_Components/BelowSpace";
+
+
+// // Teacher Dashboard
+// export default function TeacherDashboard() {
+
+//   const router = useRouter();
+//   const insets = useSafeAreaInsets();
+
+//   const {
+//     currentUser,
+//     logout,
+//   } = useAuth();
+
+//   const [menuVisible, setMenuVisible] = useState(false);
+
+//   const handleMenuOpen = () => {
+//     setMenuVisible(true);
+//   };
+
+//   const handleMenuClose = () => {
+//     setMenuVisible(false);
+//   };
+
+//   // Side menu navigation
+//   const handleMenuNavigation = (title) => {
+
+//     if (title === "Dashboard") {
+//       router.replace("/teacher/(tabs)");
+//       return;
+//     }
+
+//     if (title === "Students") {
+//       router.push("/teacher/students");
+//       return;
+//     }
+
+//     if (title === "Attendance") {
+//       router.push("/teacher/attendance");
+//       return;
+//     }
+
+//     if (title === "Mark Entry") {
+//       router.push("/teacher/marks");
+//       return;
+//     }
+
+//     if (title === "Routine") {
+//       router.push("/teacher/(tabs)/routine");
+//       return;
+//     }
+
+//     if (title === "Notices") {
+//       router.push("/teacher/notices");
+//       return;
+//     }
+//   };
+
+//   // Logout
+//   const handleLogout = () => {
+//     logout();
+//     router.replace("/");
+//   };
+
+//   return (
+//     <View className="flex-1 bg-white">
+
+//       {/* Header */}
+//       <Header
+//         currentUser={currentUser}
+//         insets={insets}
+//         onMenuPress={handleMenuOpen}
+//         role="Teacher"
+//       />
+
+//       {/* Dashboard Content */}
+//       <ScrollView
+//         className="bg-white flex-1"
+//         style={{
+//           marginTop: -20,
+//           borderTopLeftRadius: 40,
+//           borderTopRightRadius: 40,
+//         }}
+//         showsVerticalScrollIndicator={false}
+//         contentContainerStyle={{
+//           paddingTop: 1,
+//           paddingBottom: Math.max(
+//             20,
+//             insets.bottom + 80
+//           ),
+//         }}
+//       >
+
+//         <QuickAccess />
+
+//         <Banner />
+
+//         <Overview />
+
+//         <AttendanceOverview />
+
+//         <RecentTasks />
+
+//         <QuickFeatures />
+
+//         <BelowSpace />
+
+//       </ScrollView>
+
+//       {/* Teacher Side Menu */}
+//       <TeacherSideMenu
+//         visible={menuVisible}
+//         onClose={handleMenuClose}
+//         onNavigate={handleMenuNavigation}
+//         onLogout={handleLogout}
+//         insets={insets}
+//       />
+
+//     </View>
+//   );
+// }
 
 
 

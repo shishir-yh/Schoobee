@@ -13,9 +13,11 @@ export default function TeacherLayout() {
   }
 
   return (
-    <Stack screenOptions={{
+    <Stack
+      screenOptions={{
         headerShown: false,
-      }}>
+      }}
+    >
       <Stack.Screen
         name="index"
         options={{ title: "Teacher Dashboard" }}
@@ -36,42 +38,35 @@ export default function TeacherLayout() {
         options={{ title: "Attendance" }}
       />
 
-       <Stack.Screen
+      <Stack.Screen
         name="marks"
-        options={{title: "Mark Entry",}}
+        options={{ title: "Mark Entry" }}
       />
 
       <Stack.Screen
         name="online-class"
-        options={{title: "Online Classes",}}
+        options={{ title: "Online Classes" }}
       />
 
       <Stack.Screen
         name="routine"
-        options={{title: "Routine",}}
+        options={{ title: "Routine" }}
       />
 
       <Stack.Screen
         name="notices"
-        options={{
-        title: "Notices",}}
+        options={{ title: "Notices" }}
       />
 
       <Stack.Screen
         name="academic-calendar"
-        options={{
-          title: "Academic Calendar",
-        }}
+        options={{ title: "Academic Calendar" }}
       />
+
       <Stack.Screen
         name="my-attendance"
-        options={{
-          title: "My Attendance",
-        }}
-      />  
-
+        options={{ title: "My Attendance" }}
+      />
     </Stack>
-
-    
   );
 }

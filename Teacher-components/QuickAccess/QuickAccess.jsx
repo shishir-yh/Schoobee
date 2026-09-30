@@ -60,9 +60,9 @@ export default function QuickAccess() {
 
   return (
     <View className="px-5 pt-3">
-      <Text className="text-xl font-bold text-gray-800 mb-2">
+      {/* <Text className="text-xl font-bold text-gray-800 mb-2">
         Quick Access
-      </Text>
+      </Text> */}
 
       {/* QUICK ACCESS */}
       <View className="flex-row flex-wrap justify-between">
