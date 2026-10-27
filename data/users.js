@@ -6,6 +6,37 @@ export const users = [
     password: "EDU-STU-001",
     role: "student",
     name: "Demo Student",
+    img: "https://i.ibb.co.com/tP8Sjspx/image.png",
+
+    // Academic Information
+    studentId: "EDU-STU-001",
+    class: "Grade 8",
+    section: "A",
+    rollNumber: "01",
+    group: "General",
+    session: "2026",
+    admissionDate: "10 Jan 2024",
+
+    // Personal Information
+    dateOfBirth: "15 Mar 2012",
+    gender: "Male",
+    bloodGroup: "B+ (Positive)",
+    religion: "Not Specified",
+    nationality: "Bangladeshi",
+
+    // Contact Information
+    email: "student@edumanage.com",
+    contact: "01700-123456",
+    address: "Dhanmondi, Dhaka, Bangladesh",
+
+    // Guardian Information
+    fatherName: "Mr. Rahman",
+    fatherContact: "01700-111111",
+    motherName: "Mrs. Rahman",
+    motherContact: "01700-222222",
+    guardianName: "Mr. Rahman",
+    guardianRelation: "Father",
+    guardianContact: "01700-111111",
   },
   {
     id: 2,
@@ -16,19 +47,25 @@ export const users = [
     name: "Mr. Shishir",
     img: "https://simgbb.com/avatar/MnBx1LRf10Ms.jpg",
 
+    // Professional Information
     designation: "Principal & Tech Head",
     department: "General Section",
     section: "Class Teacher, Grade 8",
+    joiningDate: "12 Jan 2015",
+
+    // Personal Information
+    dateOfBirth: "04 Oct 1985",
+    bloodGroup: "O+ (Positive)",
+    nid: "1985263598741",
+
+    // Contact Information
     email: "anisul.islam@edumanage.com",
     contact: "01819-123456",
     officePhone: "+880-2-998877",
-    bloodGroup: "O+ (Positive)",
-    joiningDate: "12 Jan 2015",
     address: "Dhanmondi, Dhaka, Bangladesh",
-    dateOfBirth: "04 Oct 1985",
-    nid: "1985263598741",
-  }
+  },
 ];
+
 
 
 //Teacher Dashboard:-------->
